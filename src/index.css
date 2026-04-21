@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    overflow-x: hidden;
+    /* Allow native vertical scrolling — do NOT set overflow-y or overscroll-behavior globally */
+  }
+
+  body {
+    @apply bg-bg text-label font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Any element that scrolls internally should use this */
+  .scroll-container {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] { -moz-appearance: textfield; }
+
+  select option {
+    background: #fff;
+    color: #1C1C1E;
+  }
+}
+
+@layer utilities {
+  .safe-area-pb { padding-bottom: env(safe-area-inset-bottom, 0px); }
+  
+  /* iOS-style list group */
+  .ios-group {
+    @apply bg-card rounded-ios-xl shadow-ios overflow-hidden;
+  }
+  .ios-row {
+    @apply flex items-center px-4 py-3.5 border-b border-gray-100 last:border-0;
+  }
+  
+  /* SF Symbol-like icon container */
+  .sf-icon {
+    @apply w-9 h-9 rounded-ios flex items-center justify-center flex-shrink-0;
+  }
+
+  /* Segment control */
+  .seg-control {
+    @apply bg-subtle/40 rounded-ios p-1 flex gap-1;
+  }
+  .seg-tab {
+    @apply flex-1 py-1.5 text-xs font-semibold rounded-[8px] transition-all duration-200 text-secondary;
+  }
+  .seg-tab.active {
+    @apply bg-card text-label shadow-ios-sm;
+  }
+}
+
+/* Animations */
+@keyframes slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.animate-slide-up { animation: slide-up 0.28s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+@keyframes slide-down {
+  from { transform: translateY(-12px); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+.animate-slide-down { animation: slide-down 0.2s ease-out; }
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fade-in 0.3s ease-out both; }
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.animate-scale-in { animation: scale-in 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+/* iOS blur nav */
+.ios-blur {
+  background: rgba(242, 242, 247, 0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-top: 0.5px solid rgba(0,0,0,0.12);
+}
+
+/* Progress bar */
+.progress-track {
+  @apply w-full bg-gray-100 rounded-full overflow-hidden;
+  height: 7px;
+}
+.progress-fill {
+  @apply h-full rounded-full transition-all duration-500;
+}
